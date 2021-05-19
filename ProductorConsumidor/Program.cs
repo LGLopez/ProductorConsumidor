@@ -24,8 +24,7 @@ namespace ProductorConsumidor
                         Console.WriteLine("El productor esta trabajando...");
                     else
                         Console.WriteLine("El productor no puede producir(buffer lleno)...");
-                    
-                   
+
                     int adding = rand.Next(3, 7), toCount = 0;
                     lastAdded = adding;
                     while (toCount < adding)
@@ -39,21 +38,16 @@ namespace ProductorConsumidor
                         }
                         toCount++;
                         if (producerCounter >= 20)
-                        {
                             producerCounter = 0;
-                        }
                     }
                     drawBuffer();
                     Console.WriteLine("El productor esta dormido");
                     Thread.Sleep(rand.Next(1, 5) * 400);
+                    
                     if ((rand.Next(1, 100) % 2) == 0)
-                    {
                         consumer.Release();
-                    }
                     else
-                    {
                         producer.Release();
-                    }
                 }
             }
 
@@ -66,6 +60,7 @@ namespace ProductorConsumidor
                         Console.WriteLine("El consumidor esta trabajando...");
                     else
                         Console.WriteLine("El consumidor no puede consumir(buffer vacio)...");
+
                     int taking = rand.Next(3, 7), toCount = 0;
                     while(toCount < taking)
                     {
@@ -78,21 +73,16 @@ namespace ProductorConsumidor
                         }
                         toCount++;
                         if (consumerCounter >= 20)
-                        {
                             consumerCounter = 0;
-                        }
                     }
                     drawBuffer();
                     Console.WriteLine("El consumidor esta dormido");
                     Thread.Sleep(rand.Next(1, 5) * 400);
+
                     if ((rand.Next(1, 100) % 2) == 0)
-                    {
                         consumer.Release();
-                    }
                     else
-                    {
                         producer.Release();
-                    }
                 }
             }
 
@@ -102,13 +92,9 @@ namespace ProductorConsumidor
                 for (int i = 0; i < 20; i++)
                 {
                     if (buffer[i] == 0)
-                    {
                         results += "_|";
-                    }
                     else
-                    {
                         results += buffer[i] + "|";
-                    }
                 }
                 Console.WriteLine(results);
             }
