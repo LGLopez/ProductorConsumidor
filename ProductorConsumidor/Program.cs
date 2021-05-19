@@ -13,7 +13,7 @@ namespace ProductorConsumidor
             int[] buffer = new int[20];
 
             Random rand = new Random();
-            int producerCounter = 0, consumerCounter = 0, lastAdded = 0;
+            int producerCounter = 0, consumerCounter = 0;
 
             void Produce()
             {
@@ -26,7 +26,6 @@ namespace ProductorConsumidor
                         Console.WriteLine("El productor no puede producir(buffer lleno)...");
 
                     int adding = rand.Next(3, 7), toCount = 0;
-                    lastAdded = adding;
                     while (toCount < adding)
                     {
                         if (buffer[producerCounter] == 0)
