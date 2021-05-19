@@ -20,18 +20,19 @@ namespace ProductorConsumidor
                 while (true)
                 {
                     producer.WaitOne();
-                    int adding = rand.Next(1, 7);
+                    int adding = rand.Next(1, 7), toCount = 0;
                     lastAdded = adding;
-                    while (adding < 7)
+                    Console.WriteLine("adding: {0}, lastAdded: {1}", adding, lastAdded);
+                    while (toCount < adding)
                     {
                         if (buffer[producerCounter] == 0)
                         {
                             int num = rand.Next(1, 99);
                             buffer[producerCounter] = num;
                             producerCounter++;
-                            Console.WriteLine("El productor agrego el {0} al buffer en la posicion {1}", num, producerCounter);
+                            // Console.WriteLine("El productor agrego el {0} al buffer en la posicion {1}", num, producerCounter);
                         }
-                        adding++;
+                        toCount++;
                         if (producerCounter >= 20)
                         {
                             producerCounter = 0;
@@ -48,19 +49,20 @@ namespace ProductorConsumidor
                 while (true)
                 {
                     consumer.WaitOne();
-                    int taking = rand.Next(1, 7);
+                    int taking = rand.Next(1, 7), toCount = 0;
+                    Console.WriteLine("Taking: {0}, LastAdded: {1}",taking, lastAdded);
                     if (taking > lastAdded)             // Posible error taking puede ser cero
                         taking = lastAdded - 1;
-                    while(taking < 7)
+                    while(toCount < taking)
                     {
                         if (buffer[consumerCounter] != 0)
                         {
                             int numTaken = buffer[consumerCounter];
                             buffer[consumerCounter] = 0;
-                            Console.WriteLine("El consumidor saco el valor {0} de la posicion {1}", numTaken, consumerCounter);
+                            // Console.WriteLine("El consumidor saco el valor {0} de la posicion {1}", numTaken, consumerCounter);
                             consumerCounter++;
                         }
-                        taking++;
+                        toCount++;
                         if (consumerCounter >= 20)
                         {
                             consumerCounter = 0;
