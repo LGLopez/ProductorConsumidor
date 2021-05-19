@@ -20,7 +20,8 @@ namespace ProductorConsumidor
                 while (true)
                 {
                     producer.WaitOne();
-                    int adding = rand.Next(1, 7), toCount = 0;
+                    Console.WriteLine("El productor esta trabajando...");
+                    int adding = rand.Next(3, 7), toCount = 0;
                     lastAdded = adding;
                     while (toCount < adding)
                     {
@@ -28,8 +29,8 @@ namespace ProductorConsumidor
                         {
                             int num = rand.Next(1, 99);
                             buffer[producerCounter] = num;
-                            producerCounter++;
                             Console.WriteLine("El productor agrego el {0} al buffer en la posicion {1}", num, producerCounter);
+                            producerCounter++;
                         }
                         toCount++;
                         if (producerCounter >= 20)
@@ -39,6 +40,7 @@ namespace ProductorConsumidor
                     }
                     drawBuffer();
                     Console.WriteLine("El productor esta dormido");
+                    Thread.Sleep(rand.Next(1, 5) * 400);
                     consumer.Release();
                 }
             }
@@ -48,7 +50,8 @@ namespace ProductorConsumidor
                 while (true)
                 {
                     consumer.WaitOne();
-                    int taking = rand.Next(1, 7), toCount = 0;
+                    Console.WriteLine("El consumidor esta trabajando...");
+                    int taking = rand.Next(3, 7), toCount = 0;
                     while(toCount < taking)
                     {
                         if (buffer[consumerCounter] != 0)
@@ -66,6 +69,7 @@ namespace ProductorConsumidor
                     }
                     drawBuffer();
                     Console.WriteLine("El consumidor esta dormido");
+                    Thread.Sleep(rand.Next(1, 5) * 400);
                     producer.Release();
                 }
             }
